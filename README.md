@@ -1,2 +1,2 @@
 # my-website
-full description is better
+full description is best
