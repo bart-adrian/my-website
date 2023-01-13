@@ -8,12 +8,14 @@ on:
 env:
   SNYK_SEVERITY_THRESHOLD: medium
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
-  security:
+  snyk:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
       - uses: snyk/actions/setup@master
 
@@ -30,3 +32,13 @@ jobs:
         continue-on-error: true
         run: |
              snyk iac test  --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+
+  sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: code quality check
+        uses: SonarSource/sonarcloud-github-action@master
