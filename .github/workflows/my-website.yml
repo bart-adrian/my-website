@@ -25,5 +25,4 @@ jobs:
         continue-on-error: true
         uses: snyk/actions/dotnet@master
         with:
-          args: 
-            - --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
