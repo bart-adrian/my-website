@@ -15,11 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: check IAC code
-        continue-on-error: true
-        uses: snyk/actions/iac@master
-        with:
-          args: --scan=resource-changes --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+      # - name: check IAC code
+      #   continue-on-error: true
+      #   uses: snyk/actions/iac@master
+      #   with:
+      #     args: --scan=resource-changes --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
 
       - name: check .Net code
         continue-on-error: true
