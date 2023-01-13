@@ -2,11 +2,9 @@ name: Code Validation
 run-name: code validation triggered by ${{ github.actor }}
 on: 
   pull_request:
-    types: [opened]
-  pull_request_target:
-    branches:
-      - main
-      - master
+    types: [ opened ]
+    branches: [ main, master ]
+
 jobs:
   security:
     runs-on: ubuntu-latest
