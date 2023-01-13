@@ -13,48 +13,17 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Snyk severity level $SNYK_SEVERITY_THRESHOLD"
-
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
 
       - name: check IAC code
         continue-on-error: true
         uses: snyk/actions/iac@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --scan=resource-changes --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
 
       - name: check .Net code
         continue-on-error: true
         uses: snyk/actions/dotnet@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: 
             - --severity-threshold=$SNYK_SEVERITY_THRESHOLD
-
-      - name: "Snyk dotNET"
-        branding:
-          icon: "alert-triangle"
-          color: "yellow"
-        inputs:
-          command:
-            description: "Which Snyk command to run, defaults to test"
-            default: test
-          args:
-            description: "Additional arguments to pass to Snyk"
-          json:
-            description: "Output a snyk.json file with results if running the test command"
-            default: false
-        runs:
-          using: "docker"
-          image: "docker://snyk/snyk:dotnet"
-          env:
-            FORCE_COLOR: 2
-            SNYK_INTEGRATION_NAME: GITHUB_ACTIONS
-            SNYK_INTEGRATION_VERSION: dotnet
-          args:
-          - snyk
-          - ${{ inputs.command }}
-          - ${{ inputs.args }} 
