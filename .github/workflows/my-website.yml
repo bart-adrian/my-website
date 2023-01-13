@@ -6,7 +6,7 @@ on:
     branches: [ main, master ]
 
 env:
-  SNYK_SEVERITY_THRESHOLD: high
+  SNYK_SEVERITY_THRESHOLD: low
 
 jobs:
   security:
@@ -15,7 +15,7 @@ jobs:
       - name: check out repo for Snyk
         uses: actions/checkout@v2
 
-      - name: check IAC code
+      - name: check IAC code (severity $SNYK_SEVERITY_THRESHOLD)
         continue-on-error: true
         uses: snyk/actions/iac@master
         env:
@@ -23,10 +23,10 @@ jobs:
         with:
           args: --scan=resource-changes --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
 
-      - name: check .Net code
+      - name: check .Net code (severity $SNYK_SEVERITY_THRESHOLD)
         continue-on-error: true
         uses: snyk/actions/dotnet@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: "--severity-threshold=$SNYK_SEVERITY_THRESHOLD"
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
