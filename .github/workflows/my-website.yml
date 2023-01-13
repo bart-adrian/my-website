@@ -26,3 +26,21 @@ jobs:
         uses: snyk/actions/dotnet@master
         with:
           args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+
+      - name: check Golang code
+        continue-on-error: true
+        uses: snyk/actions/golang@master
+        with:
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+
+      - name: check Python code
+        continue-on-error: true
+        uses: snyk/actions/python@master
+        with:
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+
+      - name: check Ruby code
+        continue-on-error: true
+        uses: snyk/actions/ruby@master
+        with:
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
