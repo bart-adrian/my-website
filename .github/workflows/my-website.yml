@@ -29,4 +29,4 @@ jobs:
       - name: iac code check
         continue-on-error: true
         run: |
-             snyk iac test  --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
+             snyk iac test  --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
