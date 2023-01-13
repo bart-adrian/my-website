@@ -1,7 +1,3 @@
-<!--
-IMPORTANT:
--->
-
 ## Pre-requisites
 
 - [ ] I have tested my code
