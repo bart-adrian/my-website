@@ -12,6 +12,8 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
+      - run: env
+
       - name: check out repo for Snyk
         uses: actions/checkout@v2
 
