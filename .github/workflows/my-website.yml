@@ -21,9 +21,12 @@ jobs:
         with:
           go-version: "1.13"
 
-      - name: check code
+      - name: static code check
         continue-on-error: true
         run: |
              snyk code test --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
-             snyk iac test  --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
 
+      - name: iac code check
+        continue-on-error: true
+        run: |
+             snyk iac test  --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
