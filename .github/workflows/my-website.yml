@@ -6,7 +6,7 @@ on:
     branches: [ main, master ]
 
 env:
-  SNYK_SEVERITY_THRESHOLD: high
+  SNYK_SEVERITY_THRESHOLD: medium
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 jobs:
@@ -15,32 +15,32 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      # - name: check IAC code
-      #   continue-on-error: true
-      #   uses: snyk/actions/iac@master
-      #   with:
-      #     args: --scan=resource-changes --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+      - name: check IAC code
+        continue-on-error: true
+        uses: snyk/actions/iac@master
+        with:
+          args: --scan=resource-changes --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
 
       - name: check .Net code
         continue-on-error: true
         uses: snyk/actions/dotnet@master
         with:
-          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
 
       - name: check Golang code
         continue-on-error: true
         uses: snyk/actions/golang@master
         with:
-          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
 
       - name: check Python code
         continue-on-error: true
         uses: snyk/actions/python@master
         with:
-          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
 
       - name: check Ruby code
         continue-on-error: true
         uses: snyk/actions/ruby@master
         with:
-          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+          args: --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
