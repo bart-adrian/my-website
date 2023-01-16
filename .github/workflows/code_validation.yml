@@ -1,11 +1,11 @@
 name: code validation
 run-name: code validation triggered by ${{ github.actor }}
-defaults:
-  run:
-    working-directory: environments/development
-permissions:
-  contents: read
-  pull-requests: write
+# defaults:
+#   run:
+#     working-directory: environments/development
+# permissions:
+#   contents: read
+#   pull-requests: write
 
 env:
   SNYK_SEVERITY_THRESHOLD: medium
@@ -28,6 +28,14 @@ jobs:
              sleep 30
              echo "terraform plan"
              touch tf-plan.json
+
+
+      - name: iac terraform plan check
+        uses: snyk/actions/iac@master
+        with:
+          args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+        env:
+          file: tf-plan.json
 
   snyk-code:
     runs-on: ubuntu-latest
@@ -60,15 +68,4 @@ jobs:
       - name: code quality check
         uses: SonarSource/sonarcloud-github-action@master
 
-  snyk-terraform:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - name: iac terraform plan check
-        uses: snyk/actions/iac@master
-        with:
-          args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
-        env:
-          file: tf-plan.json
-    needs: terraform
