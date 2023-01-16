@@ -9,7 +9,3 @@ on:
 jobs:
   code_validation:
     uses: ./.github/workflows/code_validation.yml
-    env:
-      SNYK_SEVERITY_THRESHOLD: medium
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
