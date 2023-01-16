@@ -15,13 +15,13 @@ jobs:
   snyk:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: snyk/actions/setup@master
 
-      - uses: actions/setup-go@v1
-        with:
-          go-version: "1.13"
+      # - uses: actions/setup-go@v1
+      #   with:
+      #     go-version: "1.13"
 
       - name: static code check
         continue-on-error: true
@@ -36,7 +36,7 @@ jobs:
   sonar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
