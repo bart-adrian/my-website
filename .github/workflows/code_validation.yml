@@ -59,4 +59,4 @@ jobs:
           args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
         env:
           file: tf-plan.json
-  needs: terraform
+    needs: terraform
