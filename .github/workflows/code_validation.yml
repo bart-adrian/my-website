@@ -28,11 +28,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: snyk/actions/iac@master
-
       - name: iac code check
-        run: |
-             snyk iac test --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+        uses: snyk/actions/iac@master
+        with:
+          args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
 
   sonar:
     runs-on: ubuntu-latest
