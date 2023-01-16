@@ -23,6 +23,11 @@ jobs:
         run: |
              snyk code test --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
 
+  snyk-iac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
       - name: iac code check
         uses: snyk/actions/iac@master
         with:
