@@ -1,44 +1,45 @@
 name: Code Validation
 run-name: code validation triggered by ${{ github.actor }}
 on: 
+  push:
+    branches: [ $default-branch ]
   pull_request:
-    types: [ opened, reopened ]
-    branches: [ main, master ]
+    branches: [ $default-branch ]
 
 env:
   SNYK_SEVERITY_THRESHOLD: medium
   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
-  snyk:
+  snyk-code:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
       - uses: snyk/actions/setup@master
 
-      # - uses: actions/setup-go@v1
-      #   with:
-      #     go-version: "1.13"
-
       - name: static code check
-        continue-on-error: true
         run: |
              snyk code test --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD --all-projects
 
+  snyk-iac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: snyk/actions/setup@master
+
       - name: iac code check
-        continue-on-error: true
         run: |
-             snyk iac test  --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+             snyk iac test --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
 
   sonar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
 
       - name: code quality check
         uses: SonarSource/sonarcloud-github-action@master
