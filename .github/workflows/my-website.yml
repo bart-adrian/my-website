@@ -2,9 +2,9 @@ name: Code Validation
 run-name: code validation triggered by ${{ github.actor }}
 on: 
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
 env:
   SNYK_SEVERITY_THRESHOLD: medium
