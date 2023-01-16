@@ -29,12 +29,11 @@ jobs:
              echo "terraform plan"
              touch tf-plan.json
 
-
       - name: iac terraform plan check
         uses: snyk/actions/iac@master
         with:
           args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
-        env:
+        with:
           file: tf-plan.json
 
   snyk-code:
