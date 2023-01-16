@@ -33,7 +33,6 @@ jobs:
         uses: snyk/actions/iac@master
         with:
           args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
-        with:
           file: tf-plan.json
 
   snyk-code:
