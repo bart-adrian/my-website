@@ -1,9 +1,22 @@
 name: code validation
 run-name: code validation triggered by ${{ github.actor }}
 on: 
-  workflow_call:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
 
 jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: setup
+        run: |
+             sleep 30
+             echo "terraform plan"
+             
   snyk-code:
     runs-on: ubuntu-latest
     steps:
@@ -34,3 +47,16 @@ jobs:
 
       - name: code quality check
         uses: SonarSource/sonarcloud-github-action@master
+
+  snyk-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: iac terraform plan check
+        uses: snyk/actions/iac@master
+        with:
+          args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+        env:
+          file: tf-plan.json
+        needs: terraform
