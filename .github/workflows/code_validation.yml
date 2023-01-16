@@ -1,4 +1,4 @@
-name: Code Validation
+name: code validation
 run-name: code validation triggered by ${{ github.actor }}
 on: 
   push:
