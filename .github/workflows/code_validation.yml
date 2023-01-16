@@ -10,13 +10,13 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
     steps:
       - name: setup
         run: |
              sleep 30
              echo "terraform plan"
-             
+             touch tf-plan.json
+
   snyk-code:
     runs-on: ubuntu-latest
     steps:
@@ -59,4 +59,4 @@ jobs:
           args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
         env:
           file: tf-plan.json
-        needs: terraform
+  needs: terraform
