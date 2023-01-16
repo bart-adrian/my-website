@@ -19,15 +19,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
-/**
- * Shared class used by every sample. Contains methods for authorizing a user and caching credentials.
- */
 public class Auth {
-
-    /**
-     * Define a global instance of the HTTP transport.
-     */
-    public static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
     /**
      * Define a global instance of the JSON factory.
