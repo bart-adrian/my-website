@@ -1,0 +1,11 @@
+name: deploy
+run-name: deploy triggered by ${{ github.actor }}
+on: 
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  code_validation:
+    uses: ./.github/workflows/code_validation.yml
