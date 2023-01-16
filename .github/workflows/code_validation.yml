@@ -1,5 +1,9 @@
 name: code validation
 run-name: code validation triggered by ${{ github.actor }}
+defaults:
+  run:
+    working-directory: environments/development
+    
 on: 
   push:
     branches: [ master, main ]
