@@ -1,0 +1,36 @@
+name: terraform plan
+run-name: terraform plan triggered by ${{ github.actor }}
+# defaults:
+#   run:
+#     working-directory: environments/development
+# permissions:
+#   contents: read
+#   pull-requests: write
+
+env:
+  SNYK_SEVERITY_THRESHOLD: medium
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup
+        run: |
+             sleep 10
+             echo "terraform plan"
+             touch tf-plan.json
+
+      - name: iac terraform plan check
+        uses: snyk/actions/iac@master
+        with:
+          args: --report --severity-threshold=$SNYK_SEVERITY_THRESHOLD
+          file: tf-plan.json
